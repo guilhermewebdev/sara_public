@@ -1,0 +1,12 @@
+version: "3.7"
+
+services: 
+    api:
+        build: ./api
+        restart: always
+        volumes:
+            - ./api:/code
+        ports:
+            - 80:80
+            - 443:443
+        command: flask run
