@@ -5,6 +5,7 @@ from controllers.sara_centralidade import Importancia
 from controllers.sara_coletor import coletar
 from controllers.sara_conteudo import modelar
 from controllers.sara_estrutural import main
+from controllers.sara_sentimento import DetectorSentimento
 
 app = Flask(__name__)
 
@@ -85,3 +86,18 @@ def estrutural():
     finally:
         return response
 
+@app.route('/sentimento', methods=['POST'])
+def sentimento():
+    try:
+        detecta_sentimento = DetectorSentimento()
+        detecta_sentimento.main(
+            request.form['database_name'],
+            request.form['collection']
+        )
+    except KeyError as err:
+        response['error'] = err
+        response['sucesss'] = False
+    else:
+        response['sucess'] = False
+    finally:
+        return response
