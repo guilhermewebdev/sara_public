@@ -9,19 +9,8 @@ import sys
 
 import core.modelagem_topicos as modelagem_topicos
 
-try:
-    name_file = sys.argv[0]
-    banco = sys.argv[1]
-    colecao = sys.argv[2]
-except IndexError as exc:
-    print(f"erro {exc}")
-    print(f"Digite {name_file} <banco> <colecao>")
-    sys.exit()
-
-print(f"Banco a ser utilizado:{banco} \nColecao: {colecao}")
-
-
-# Análise de conteúdo
-palavras = modelagem_topicos.main(banco, colecao, 1000)
+def modelar(name_file, banco, colecao):
+    # Análise de conteúdo
+    palavras = modelagem_topicos.main(banco, colecao, 1000)
 # print("Modelagem ... OK\nSentimento Modelagem:")
 # print("Sentimento Modelagem... ok")

@@ -3,6 +3,7 @@ from flask import Flask, request
 
 from controllers.sara_centralidade import Importancia
 from controllers.sara_coletor import coletar
+from controllers.sara_conteudo import modelar
 
 app = Flask(__name__)
 
@@ -27,6 +28,7 @@ def centralidade():
     finally:
         return response
 
+
 @app.route('/coletor', methods=['POST'])
 def coletor():
     response = {}
@@ -37,6 +39,22 @@ def coletor():
             n_tweets=request.form['n_tweets'],
             colecao=request.form['colecao'],
             nome_banco=request.form['banco']
+        )
+    except KeyError as err:
+        response['error'] = err
+        response['sucesss'] = False
+    else:
+        response['sucess'] = False
+    finally:
+        return response
+
+@app.route('/conteudo', methods=['POST'])
+def conteudo():
+    try:
+        modelar(
+            name_file=request.form['arquivo'],
+            banco=request.form['banco'],
+            colecao=request.form['colecao']
         )
     except KeyError as err:
         response['error'] = err

@@ -36,8 +36,3 @@ class Importancia():
         relevante.main(self.nome_base, self.nome_colecao,
                        self.lista_nos, nome_rede)
 
-
-if __name__ == '__main__':
-    importancia = Importancia()
-    importancia.carrega_grafo()
-    importancia.realiza_busca()
