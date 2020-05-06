@@ -6,28 +6,20 @@ Sara - Sistema de Análise de Dados com Redes Complexas e Analytics
 Focado em análises politicas no twitter.
 Realiza o calculo de centralidade
 """
-import sys
-
 import networkx as nx
 
-import core.centralidade as relevante
+import ..core.centralidade as relevante
 
 
 class Importancia():
     """docstring for Estrutural."""
 
-    def __init__(self):
-        try:
-            self.nome_base = sys.argv[1]
-            self.nome_colecao = sys.argv[2]
-            self.nome_rede = sys.argv[3]
-            self.lista_nos = ""
-        except IndexError as exc:
-            print(f"ERRO {exc}!!"
-                  "Digite : \n>python3 sara_centralidade.py"
-                  " <nome_base> <nome_colecao> <grafo>")
-            sys.exit()
-
+    def __init__(self, base, colecao, rede, nos=''):
+        self.nome_base = base
+        self.nome_colecao = colecao
+        self.nome_rede = rede
+        self.lista_nos = nos
+        
     def carrega_grafo(self):
         """carrega um grafo e gera uma lista de vértices"""
         rede = nx.read_gml(self.nome_rede)
