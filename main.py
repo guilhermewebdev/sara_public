@@ -4,6 +4,7 @@ from flask import Flask, request
 from controllers.sara_centralidade import Importancia
 from controllers.sara_coletor import coletar
 from controllers.sara_conteudo import modelar
+from controllers.sara_estrutural import main
 
 app = Flask(__name__)
 
@@ -48,6 +49,7 @@ def coletor():
     finally:
         return response
 
+
 @app.route('/conteudo', methods=['POST'])
 def conteudo():
     try:
@@ -63,3 +65,23 @@ def conteudo():
         response['sucess'] = False
     finally:
         return response
+
+
+@app.route('/estrutural', methods=['POST'])
+def estrutural():
+    try:
+        main(
+            nome_rede=request.form['rede'],
+            nome_base=request.form['base'],
+            colecao=request.form['colecao'],
+            direcionada=request.form['direcionada'],
+            limite=request.form['limite'],
+        )
+    except KeyError as err:
+        response['error'] = err
+        response['sucesss'] = False
+    else:
+        response['sucess'] = False
+    finally:
+        return response
+
