@@ -62,17 +62,3 @@ class DetectorSentimento():
         axes = sns.countplot(y="Sentimento", data=data_frame, ax=axes)
         plt.show()
         fig.savefig("last_analise.png")
-
-
-# --- chamada ----
-detecta_sentimento = DetectorSentimento()
-
-try:
-    name_file = sys.argv[0]
-    database_name = sys.argv[1]
-    collection = sys.argv[2]
-except IndexError as exc:
-    print(f"erro {exc}")
-    print(f"Digite {name_file} <banco> <colecao>")
-    sys.exit()
-detecta_sentimento.main(database_name, collection)

@@ -8,7 +8,7 @@ Realiza o calculo de centralidade
 """
 import networkx as nx
 
-import ..core.centralidade as relevante
+import core.centralidade as relevante
 
 
 class Importancia():
