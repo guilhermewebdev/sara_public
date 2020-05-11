@@ -21,12 +21,12 @@ def centralidade():
         )
         importancia.carrega_grafo()
         importancia.realiza_busca()
-        response['sucess'] = True
+        response['success'] = True
     except KeyError as err:
         response['error'] = err
-        response['sucess'] = False
+        response['success'] = False
     else:
-        response['sucess'] = False
+        response['success'] = False
     finally:
         return response
 
@@ -35,6 +35,7 @@ def centralidade():
 def coletor():
     response = {}
     try:
+        response['success'] = True
         coletar(
             name_file=request.form['arquivo'],
             termo=request.form['termo'],
@@ -44,9 +45,10 @@ def coletor():
         )
     except KeyError as err:
         response['error'] = err
+        
         response['sucesss'] = False
     else:
-        response['sucess'] = False
+        response['success'] = False
     finally:
         return response
 
@@ -59,11 +61,12 @@ def conteudo():
             banco=request.form['banco'],
             colecao=request.form['colecao']
         )
+        response['success'] = True
     except KeyError as err:
         response['error'] = err
         response['sucesss'] = False
     else:
-        response['sucess'] = False
+        response['success'] = False
     finally:
         return response
 
@@ -78,11 +81,12 @@ def estrutural():
             direcionada=request.form['direcionada'],
             limite=request.form['limite'],
         )
+        response['success'] = True
     except KeyError as err:
         response['error'] = err
         response['sucesss'] = False
     else:
-        response['sucess'] = False
+        response['success'] = False
     finally:
         return response
 
@@ -94,10 +98,11 @@ def sentimento():
             request.form['database_name'],
             request.form['collection']
         )
+        response['success'] = True
     except KeyError as err:
         response['error'] = err
         response['sucesss'] = False
     else:
-        response['sucess'] = False
+        response['success'] = False
     finally:
         return response

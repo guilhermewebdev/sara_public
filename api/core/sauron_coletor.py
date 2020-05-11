@@ -14,6 +14,12 @@ from twitter.error import TwitterError
 
 from credenciais.conexao_twitter import inicia_conexao
 
+def iteration(dict, callback):
+    def loop(index):
+        callback(dict[index], index)
+        if(index == len(dict) - 1): return True
+        else: return loop(index + 1)
+    return loop(0)
 
 class Sauron():
     """docstring for Sauron."""
@@ -29,7 +35,7 @@ class Sauron():
         # configuração do banco de dados MongoDB
         self.pos = ""
         self.collection = ""
-        self.controle_exibicao = 1000
+        self.controle_exbicao = 1000
         self.sleep_on_error = 20
 
     def banco(self, nome_banco, colecao):
@@ -59,7 +65,7 @@ class Sauron():
     def salvar_mongo(self, tweet, post):
         """Salva o tweet no mongodb"""
         post.replace_one(tweet, tweet, True)
-        # self.save_data("dados_coletados", tweet)
+        self.save_data("dados_coletados", tweet)
 
     def monitor_twitter(self, termo_pesquisa, conexao_banco, limite=0):
         """Monitora as postagens em tempo real"""
@@ -70,16 +76,19 @@ class Sauron():
         contador = 0
         exibicao = 0
         try:
-            for tweet in retorno:
-                if exibicao == self.controle_exibicao:
+            def tweets(tweet, index):
+                if exibicao == self.controle_exbicao:
                     print("Tweets Coletados", contador)
                     exibicao = 0
+                if contador == 5000:
+                    return
                 contador += 1
                 exibicao += 1
                 self.salvar_mongo(tweet, conexao_banco)
                 if contador == limite and limite != 0:
                     print("Coleta encerrada a partir do limite determinado.")
                     return
+            return iteration(retorno, tweets)
         except TwitterError as exc:
             print(f"error {exc.message}")
             if 'Unauthorized' in exc.message.get('message'):
