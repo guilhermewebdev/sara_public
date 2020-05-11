@@ -14,10 +14,10 @@ from twitter.error import TwitterError
 
 from credenciais.conexao_twitter import inicia_conexao
 
-def iteration(dict, callback):
+def iteration(li, callback):
     def loop(index):
-        callback(dict[index], index)
-        if(index == len(dict) - 1): return True
+        callback(li[index], index)
+        if(index == len(li) - 1): return True
         else: return loop(index + 1)
     return loop(0)
 
